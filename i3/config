@@ -219,6 +219,9 @@ exec_always --no-startup-id "feh --bg-scale /home/evelin/Pictures/wallpapers/bac
   default_floating_border normal 1
 # for_window [class="^.*"] border none 0
 
+# fix for dialogs appearing too big
+floating_maximum_size 1024 x 768 
+
 # Inner gaps for all windows: space between two adjacent windows (or split containers).
 # gaps inner <gap_size>[px]
 gaps inner 5
