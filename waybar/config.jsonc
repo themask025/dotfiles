@@ -19,10 +19,7 @@
         "tray",
 	"mpd",
         "pulseaudio",
-        "network",
         "power-profiles-daemon",
-        "keyboard-state",
-        "sway/language",
         "battery",
         "battery#bat2",
         "clock"
