@@ -5,8 +5,9 @@
 }
 
 window#waybar {
+    /*background-color: #000000;*/
     background-color: rgba(43, 48, 59, 0.5);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5);*/
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -50,7 +51,9 @@ button:hover {
 
 /* you can set a style on hover for any module like this */
 #pulseaudio:hover {
+    /*
     background-color: #a37800;
+    */
 }
 
 #workspaces button {
@@ -114,17 +117,19 @@ button:hover {
 }
 
 #clock {
-    background-color: #64727D;
+    /* background-color: #64727D; */
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
+    /* background-color: #ffffff;
+    color: #000000; */
 }
 
 #battery.charging, #battery.plugged {
+    /*
     color: #ffffff;
     background-color: #26A65B;
+    */
 }
 
 @keyframes blink {
@@ -193,6 +198,7 @@ label:focus {
     background-color: #f53c3c;
 }
 
+/*
 #pulseaudio {
     background-color: #f1c40f;
     color: #000000;
@@ -202,7 +208,7 @@ label:focus {
     background-color: #90b1b1;
     color: #2a5c45;
 }
-
+*/
 #wireplumber {
     background-color: #fff0f5;
     color: #000000;
@@ -234,7 +240,9 @@ label:focus {
 }
 
 #tray {
+    /*
     background-color: #2980b9;
+    */
 }
 
 #tray > .passive {
