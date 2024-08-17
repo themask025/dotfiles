@@ -5,12 +5,7 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:monospace 8
 
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
+# Start XDG autostart .desktop files using dex.
 exec --no-startup-id dex --autostart --environment sway
 
 # Start gnome-settings-daemon for the GNOME things to work
@@ -31,32 +26,29 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86MonBrightnessUp exec brightnessctl set 10%+
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# move tiling windows via drag & drop by left-clicking into the title bar, # or left-clicking anywhere into the window while holding the floating modifier.  tiling_drag modifier titlebar
-
-# start a terminal
+# Start a terminal
 bindsym $mod+Return exec alacritty
 
-# kill focused window
+# Kill focused window
 bindsym $mod+Shift+q kill
 
-# A more modern dmenu replacement is rofi:
+# Start rofi:
 bindcode $mod+40 exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher.sh
 
-# change focus
+# Change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
-# alternatively, you can use Alt+Tab
+# Alternatively, you can use Mod+Tab
 bindsym $mod+Tab focus right
 bindsym $mod+Shift+Tab focus left
 
-# alternatively, you can use the cursor keys:
+# Alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -143,8 +135,8 @@ bindgesture swipe:3:right workspace prev
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
+
 # exit sway (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/powermenu/type-4/powermenu.sh
 
 # resize window (you can also use the mouse for that)
@@ -177,8 +169,8 @@ bindsym $mod+r mode "resize"
 # Window borders
 default_border pixel 0
 default_floating_border normal 1
-# for_window [class="^.*"] border none 0
 
+# Gaps
 gaps inner 5
 gaps outer 5
 smart_gaps on
@@ -223,3 +215,6 @@ exec --no-startup-id gammastep
 
 # Fractional scaling
 output eDP-1 scale 1.25
+
+# Stupid fix for audio only working ater switching card profiles
+exec /home/evelin/scripts/card-profile-switching.sh
