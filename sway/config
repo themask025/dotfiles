@@ -1,21 +1,81 @@
 # Set mod key
 set $mod Mod4
 
+###
+# Appearance
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
 
+# Background
+output * bg /home/evelin/Pictures/wallpapers/background.jpg fill
+
+# Colours
+client.focused #141414 #141414 #fdf6e3 #141414
+
+# Window borders
+default_border pixel 0
+default_floating_border normal 1
+
+# Gaps
+gaps inner 5
+gaps outer 5
+smart_gaps on
+
+# Status Bar:
+bar {
+  swaybar_command waybar
+  workspace_buttons yes
+}
+
+# Fractional scaling
+output eDP-1 scale 1.25
+
+
+
+###
+#  Autostarting
+
 # Start XDG autostart .desktop files using dex.
 exec --no-startup-id dex --autostart --environment sway
-
-# Start gnome-settings-daemon for the GNOME things to work
-exec_always /usr/libexec/gnome-settings-daemon
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# Use pactl to adjust volume in PulseAudio.
+# Polkit agent
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# "Night light" application
+exec --no-startup-id gammastep 
+
+# Notifications server
+exec mako
+
+# Start gnome-settings-daemon for the GNOME things to work
+exec_always /usr/libexec/gnome-settings-daemon
+
+# Stupid fix for audio only working ater switching card profiles
+exec /home/evelin/scripts/card-profile-switching.sh
+
+
+
+###
+# Session management
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# exit sway (logs you out of your X session)
+bindsym $mod+Shift+e exec --no-startup-id ~/scripts/fuzzel/powermenu.sh
+
+
+
+###
+# Hotkeys
+
+# Volume controls
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
@@ -26,17 +86,31 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86MonBrightnessUp exec brightnessctl set 10%+
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+# Take screenshot
+bindsym Print exec /usr/bin/sway-interactive-screenshot
+
+
+###
+# Launching applications
 
 # Start a terminal
 bindsym $mod+Return exec alacritty
 
-# Kill focused window
-bindsym $mod+Shift+q kill
+# Start application launcher
+bindcode $mod+40 exec --no-startup-id fuzzel
 
-# Start rofi:
-bindcode $mod+40 exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher.sh
+# Custom launch keybinds
+bindsym $mod+b exec firefox
+bindsym $mod+c exec code
+bindsym $mod+t exec thunar
+bindsym $mod+m exec spotify-launcher
+bindsym $mod+x exec discord
+bindsym $mod+z exec telegram-desktop
+
+
+
+### 
+# Window management
 
 # Change focus
 bindsym $mod+j focus left
@@ -66,6 +140,29 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# resize focused window (you can also use the mouse for that)
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
 # split in horizontal orientation
 bindsym $mod+h split h
 
@@ -80,17 +177,17 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
+# focus the parent container
+bindsym $mod+a focus parent
+
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -133,53 +230,10 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindgesture swipe:3:left workspace next
 bindgesture swipe:3:right workspace prev
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
 
-# exit sway (logs you out of your X session)
-bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/powermenu/type-4/powermenu.sh
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
-# Window borders
-default_border pixel 0
-default_floating_border normal 1
-
-# Gaps
-gaps inner 5
-gaps outer 5
-smart_gaps on
-
-# Status Bar:
-bar {
-  swaybar_command waybar
-  workspace_buttons yes
-}
+###
+# Other configurations:
 
 # Touchpad: 
 input "type:touchpad" {
@@ -195,26 +249,4 @@ input * {
     xkb_options "grp:alt_shift_toggle"
 }
 
-# Custom launch keybinds
-bindsym $mod+b exec firefox
-bindsym $mod+c exec code
-bindsym $mod+t exec thunar
-bindsym $mod+m exec spotify-launcher
-bindsym $mod+x exec discord
-bindsym $mod+z exec telegram-desktop
 
-# Background
-output * bg /home/evelin/Pictures/wallpapers/background.jpg fill
-
-# Colours
-client.focused #141414 #141414 #fdf6e3 #141414
-
-# Autostarting
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id gammastep 
-
-# Fractional scaling
-output eDP-1 scale 1.25
-
-# Stupid fix for audio only working ater switching card profiles
-exec /home/evelin/scripts/card-profile-switching.sh
