@@ -1,3 +1,6 @@
+include /etc/sway/config.d/*
+exec systemctl --user import-environment DISPLAY
+
 # Set mod key
 set $mod Mod4
 
@@ -245,7 +248,7 @@ input "type:touchpad" {
 # Keyboard layout switching support
 input * {
     xkb_layout "us,bg"
-    xkb_variant ",phonetic"
+#    xkb_variant ",phonetic"
     xkb_options "grp:alt_shift_toggle"
 }
 

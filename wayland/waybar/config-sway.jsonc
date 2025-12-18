@@ -7,27 +7,25 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/submap",
+        "sway/workspaces",
+        "sway/mode",
         "sway/scratchpad",
         "custom/media"
     ],
     "modules-center": [
-        "hyprland/window"
+        "sway/window"
     ],
     "modules-right": [
         "tray",
 	"mpd",
-	"hyprland/language",
         "pulseaudio",
-	"network",
         "power-profiles-daemon",
         "battery",
         "battery#bat2",
         "clock"
     ],
     // Modules configuration
-    // "hyprland/workspaces": {
+    // "sway/workspaces": {
     //     "disable-scroll": true,
     //     "all-outputs": true,
     //     "warp-on-scroll": false,
@@ -43,11 +41,6 @@
     //         "default": ""
     //     }
     // },
-    "hyprland/workspaces": {
-     "format": "{icon}",
-     "on-scroll-up": "hyprctl dispatch workspace e+1",
-     "on-scroll-down": "hyprctl dispatch workspace e-1"
-	},
     "keyboard-state": {
         "numlock": true,
         "capslock": true,
@@ -57,7 +50,7 @@
             "unlocked": ""
         }
     },
-    "hyprland/submap": {
+    "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
     "sway/scratchpad": {
@@ -93,11 +86,6 @@
         "tooltip-format": "MPD (connected)",
         "tooltip-format-disconnected": "MPD (disconnected)"
     },
-    "hyprland/language":{
-    	"format": "{}  ",
-    	"format-en": "en",
-	"format-bg": "bg"
-    	},
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
@@ -166,9 +154,7 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": " ",
-        //"format-wifi": "wifi",
-        //"format-ethernet": "",
-        "format-ethernet": "eth",
+        "format-ethernet": "",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
